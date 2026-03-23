@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CEFCA | Portal de Transparencia</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --surface-2: #f8fbff;
+      --text: #1f2a37;
+      --muted: #5b6677;
+      --line: #d9e2ec;
+      --brand: #0d5cab;
+      --brand-2: #0b7a75;
+      --accent: #f59e0b;
+      --ok: #0f766e;
+      --shadow: 0 14px 34px rgba(20, 33, 61, 0.08);
+      --radius: 18px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #eef4fb 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(244, 247, 251, 0.85);
+      border-bottom: 1px solid rgba(217, 226, 236, 0.8);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: white;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid rgba(217, 226, 236, 0.9);
+      padding: 0;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover { background: rgba(13, 92, 171, 0.08); color: var(--brand); }
+
+    .hero {
+      padding: 40px 0 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(217, 226, 236, 0.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 34px;
+      background: radial-gradient(circle at top right, rgba(13, 92, 171, 0.08), transparent 26%), var(--surface);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(13, 92, 171, 0.08);
+      color: var(--brand);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    h1, h2, h3, h4 { margin: 0 0 12px; line-height: 1.15; }
+    h1 { font-size: clamp(2rem, 4vw, 3.4rem); margin-top: 16px; }
+    h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); }
+    h3 { font-size: 1.08rem; }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 66ch;
+      margin: 0 auto 24px;
+      text-align: justify;
+    }
+
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .kpi {
+      padding: 16px;
+      border-radius: 14px;
+      background: var(--surface-2);
+      border: 1px solid rgba(13, 92, 171, 0.08);
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    .kpi span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .info-panel {
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: linear-gradient(180deg, #0f5ba8 0%, #083d73 100%);
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .info-panel::after {
+      content: "";
+      position: absolute;
+      inset: auto -70px -70px auto;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .logo-box {
+      width: 100%;
+      min-height: 200px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.32);
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,250,255,0.96));
+      text-align: center;
+      padding: 24px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 12px 28px rgba(0, 0, 0, 0.14);
+    }
+
+    .logo-box img {
+      max-width: 100%;
+      max-height: 250px;
+      width: auto;
+      height: auto;
+      display: block;
+    }
+
+    .panel-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .meta-item {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    section { padding: 20px 0; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .section-head p { color: var(--muted); max-width: 74ch; margin: 0; }
+
+    .section-head.centered {
+      justify-content: center;
+      text-align: center;
+    }
+
+    .section-head.centered > div {
+      width: 100%;
+    }
+
+    .summary-grid, .authority-grid, .links-grid, .request-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .summary-grid { grid-template-columns: repeat(3, 1fr); }
+    .authority-grid { grid-template-columns: repeat(3, 1fr); }
+    .links-grid { grid-template-columns: repeat(4, 1fr); }
+    .request-grid { grid-template-columns: 1.2fr 1fr; }
+
+    .summary-card, .authority-card, .link-card, .request-card {
+      padding: 22px;
+    }
+
+    .authority-card { text-align: center; }
+
+    .summary-card p, .authority-card p, .link-card p, .request-card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6px 10px;
+      min-height: 38px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: rgba(13, 92, 171, 0.08);
+      color: var(--brand);
+      line-height: 1.25;
+    }
+
+    .badge.alt { background: rgba(11, 122, 117, 0.1); color: var(--ok); }
+    .badge.warn { background: rgba(245, 158, 11, 0.16); color: #9a6700; }
+
+    .authority-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      justify-content: center;
+    }
+
+    .mini-link {
+      font-size: 0.9rem;
+      color: var(--brand);
+      font-weight: 600;
+    }
+
+    .pill-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .pill-box {
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(217, 226, 236, 0.9);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .pill-box .eyebrow { margin-bottom: 10px; }
+
+    .accordion-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    details {
+      background: var(--surface);
+      border: 1px solid rgba(217, 226, 236, 0.9);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    details[open] { border-color: rgba(13, 92, 171, 0.25); }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      font-weight: 700;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    .summary-title small {
+      display: block;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 5px;
+    }
+
+    .doc-body {
+      padding: 0 20px 20px;
+      color: var(--muted);
+    }
+
+    .doc-body ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .doc-body li { margin-bottom: 8px; }
+
+    .doc-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .doc-actions a {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(13, 92, 171, 0.08);
+      color: var(--brand);
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .link-card {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .link-card h3 {
+      margin: 0 0 10px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 52px;
+    }
+
+    .link-card p {
+      text-align: justify;
+    }
+
+    .request-steps {
+      padding-left: 18px;
+      margin: 14px 0 0;
+      color: var(--muted);
+    }
+
+    .request-steps li { margin-bottom: 10px; }
+
+    .callout {
+      padding: 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(13, 92, 171, 0.08), rgba(11, 122, 117, 0.08));
+      border: 1px solid rgba(13, 92, 171, 0.12);
+      margin-top: 16px;
+    }
+
+    .muted-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 12px;
+    }
+
+    .method-wrap {
+      padding: 12px 0 40px;
+    }
+
+    .method-card {
+      padding: 30px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(13, 92, 171, 0.08), rgba(11, 122, 117, 0.08));
+      border: 1px solid rgba(13, 92, 171, 0.14);
+      box-shadow: var(--shadow);
+    }
+
+    .method-layout {
+      display: grid;
+      grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .method-figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .method-cover-frame {
+      width: 100%;
+      aspect-ratio: 0.78;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(241,247,255,0.96));
+      border: 1px solid rgba(13, 92, 171, 0.16);
+      box-shadow: 0 18px 36px rgba(20, 33, 61, 0.12);
+      display: grid;
+      place-items: center;
+      position: relative;
+      padding: 18px;
+    }
+
+    .method-cover-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 14px;
+      background: white;
+    }
+
+    .method-cover-frame.empty::before {
+      content: "Portada del documento metodológico";
+      color: var(--muted);
+      font-weight: 600;
+      text-align: center;
+      max-width: 18ch;
+      line-height: 1.35;
+    }
+
+    .method-caption {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-align: center;
+      margin: 0;
+    }
+
+    .method-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .method-copy .eyebrow {
+      align-self: center;
+      text-align: center;
+    }
+
+    .method-card h2 {
+      margin: 0;
+      text-align: left;
+    }
+
+    .method-card p {
+      color: var(--muted);
+      margin: 0;
+      text-align: justify;
+    }
+
+    .method-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .method-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      color: var(--brand);
+      border: 1px solid rgba(13, 92, 171, 0.14);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .method-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 4px;
+      width: 100%;
+    }
+
+    .method-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      background: white;
+      color: var(--brand);
+      border: 1px solid rgba(13, 92, 171, 0.18);
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .method-actions a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(20, 33, 61, 0.12);
+      background: #ffffff;
+    }
+
+    .method-note {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+
+    .panel-trigger {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(13, 92, 171, 0.08);
+      color: var(--brand);
+      font-weight: 600;
+      font-size: 0.92rem;
+      border: 1px solid rgba(13, 92, 171, 0.12);
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: none;
+      font-family: inherit;
+    }
+
+    .panel-trigger:hover {
+      background: rgba(13, 92, 171, 0.14);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .goals-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.34);
+      backdrop-filter: blur(7px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 22px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.24s ease, visibility 0.24s ease;
+      z-index: 120;
+    }
+
+    .goals-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .goals-panel {
+      width: min(1120px, 100%);
+      max-height: min(88vh, 920px);
+      background: var(--surface);
+      border: 1px solid rgba(217, 226, 236, 0.9);
+      border-radius: 28px;
+      box-shadow: 0 26px 70px rgba(20, 33, 61, 0.22);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(22px) scale(0.985);
+      transition: transform 0.28s ease;
+      position: relative;
+    }
+
+    .goals-overlay.active .goals-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .goals-panel-header {
+      padding: 28px 30px 20px;
+      background:
+        radial-gradient(circle at top right, rgba(13, 92, 171, 0.12), transparent 30%),
+        radial-gradient(circle at top left, rgba(11, 122, 117, 0.10), transparent 26%),
+        linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+      border-bottom: 1px solid rgba(217, 226, 236, 0.9);
+      position: relative;
+      text-align: center;
+    }
+
+    .goals-panel-header h3 {
+      margin: 10px 0 8px;
+      font-size: clamp(1.45rem, 2.3vw, 2rem);
+    }
+
+    .goals-panel-header p {
+      margin: 0 auto;
+      color: var(--muted);
+      max-width: 78ch;
+    }
+
+    .goals-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(217, 226, 236, 0.9);
+      border-radius: 14px;
+      background: white;
+      color: var(--brand);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: background 0.18s ease, transform 0.18s ease;
+      box-shadow: var(--shadow);
+      line-height: 1;
+    }
+
+    .goals-close:hover {
+      background: rgba(13, 92, 171, 0.08);
+      transform: scale(1.03);
+    }
+
+    .goals-panel-body {
+      padding: 24px 30px 30px;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #ffffff 0%, #f9fbfe 100%);
+    }
+
+    .goals-intro {
+      margin: 0 0 20px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .goals-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+
+    .goals-column {
+      border: 1px solid rgba(217, 226, 236, 0.92);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,251,255,0.98) 100%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .goals-column-header {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid rgba(217, 226, 236, 0.92);
+      background: linear-gradient(180deg, rgba(13, 92, 171, 0.08), rgba(13, 92, 171, 0.02));
+      text-align: center;
+    }
+
+    .goals-column.training .goals-column-header {
+      background: linear-gradient(180deg, rgba(11, 122, 117, 0.10), rgba(11, 122, 117, 0.03));
+    }
+
+    .goals-column-header .eyebrow {
+      margin-bottom: 12px;
+    }
+
+    .goals-column.training .eyebrow {
+      background: rgba(11, 122, 117, 0.12);
+      color: var(--ok);
+    }
+
+    .goals-column-header h4 {
+      margin: 0 0 6px;
+      font-size: 1.08rem;
+    }
+
+    .goals-column-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .goals-list {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .goal-item {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--surface);
+      border: 1px solid rgba(217, 226, 236, 0.95);
+      box-shadow: 0 10px 22px rgba(20, 33, 61, 0.06);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .goal-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(20, 33, 61, 0.10);
+    }
+
+    .goal-number {
+      width: 64px;
+      min-height: 64px;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: linear-gradient(135deg, rgba(13, 92, 171, 0.14), rgba(13, 92, 171, 0.08));
+      color: var(--brand);
+      font-weight: 800;
+      border: 1px solid rgba(13, 92, 171, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .goal-number::after {
+      content: "";
+      position: absolute;
+      inset: auto -10px -14px auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.26);
+    }
+
+    .goal-index {
+      font-size: 0.82rem;
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .goal-icon {
+      font-size: 1.35rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: softFloat 3.2s ease-in-out infinite;
+      transform-origin: center;
+      filter: saturate(1.05);
+    }
+
+    .goal-item:nth-child(2) .goal-icon { animation-delay: 0.35s; }
+    .goal-item:nth-child(3) .goal-icon { animation-delay: 0.7s; }
+    .goal-item:nth-child(4) .goal-icon { animation-delay: 1.05s; }
+    .goal-item:nth-child(5) .goal-icon { animation-delay: 1.4s; }
+
+    .goals-column.training .goal-number {
+      background: linear-gradient(135deg, rgba(11, 122, 117, 0.14), rgba(11, 122, 117, 0.08));
+      color: var(--ok);
+      border-color: rgba(11, 122, 117, 0.14);
+    }
+
+    .goal-content h5 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .goal-content p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: justify;
+    }
+
+    @keyframes softFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+
+    body.panel-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .summary-grid,
+      .authority-grid,
+      .links-grid,
+      .request-grid,
+      .accordion-wrap,
+      .pill-split {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+
+      .goals-overlay {
+        padding: 10px;
+      }
+
+      .goals-panel {
+        width: 100%;
+        max-height: calc(100vh - 20px);
+        border-radius: 22px;
+      }
+
+      .goals-panel-header,
+      .goals-panel-body {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .goals-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .goal-item {
+        grid-template-columns: 1fr;
+      }
+
+      .goal-number {
+        width: 46px;
+        min-height: 46px;
+        border-radius: 14px;
+      }
+
+
+      .nav { flex-direction: column; align-items: flex-start; }
+      .nav-links { justify-content: flex-start; }
+      .hero-card, .info-panel, .summary-card, .authority-card, .link-card, .request-card { padding: 18px; }
+      .hero-kpis { grid-template-columns: 1fr; }
+      .panel-meta { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-mark"><img src="logo-header.svg" alt="Logo del CEFCA" /></div>
+        <div>
+          <div>CEFCA</div>
+          <small style="color: var(--muted); font-weight: 500;">Portal de Transparencia</small>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#resumen">Resumen</a>
+        <a href="#autoridades">Autoridades</a>
+        <a href="#activa">Transparencia Activa</a>
+        <a href="#proactiva">Transparencia Proactiva</a>
+        <a href="#enlaces">Enlaces</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <article class="card hero-card">
+          <h1 style="text-align: center;">Portal de Transparencia del CEFCA</h1>
+          <p class="lead">
+            Esta es una página transitoria de transparencia del organismo CEFCA, habilitada para poner a disposición información institucional relevante, documentación de consulta pública y enlaces oficiales mientras se finaliza el desarrollo del sitio web oficial del organismo. En las próximas semanas estará disponible la página institucional definitiva.
+          </p>
+          <div class="hero-kpis">
+            <div class="kpi">
+              <strong>13</strong>
+              <span>Indicadores de transparencia activa</span>
+            </div>
+            <div class="kpi">
+              <strong>7</strong>
+              <span>Indicadores de transparencia proactiva</span>
+            </div>
+            <div class="kpi">
+              <strong>90 / 10</strong>
+              <span>Ponderación ITA / ITP</span>
+            </div>
+            <div class="kpi">
+              <strong>3</strong>
+              <span>Dimensiones: completitud, actualización y disponibilidad</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="card info-panel">
+          <div>
+            <h2 style="margin-bottom: 8px; text-align: center; font-size: 1.55rem;">Centro de Formación y Capacitación en Administración Pública del Chaco</h2>
+            <p style="margin: 0; color: rgba(255,255,255,0.86); text-align: justify;">
+              Institución dedicada a la capacitación, formación continua, investigación aplicada y desarrollo de capacidades para el fortalecimiento de la gestión pública provincial.
+            </p>
+          </div>
+          <div class="logo-box"><img src="logo-main.svg" alt="Logo oficial del CEFCA" /></div>
+          <div class="panel-meta">
+            <div class="meta-item">
+              <strong>Última actualización</strong>
+              <div>25 de marzo de 2026</div>
+            </div>
+            <div class="meta-item">
+              <strong>Responsable</strong>
+              <div>María Jimena Molina</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="resumen">
+      <div class="container">
+        <div class="section-head centered">
+          <div>
+            <div class="eyebrow">Resumen institucional</div>
+            <h2>Información general del organismo</h2>
+          </div>
+        </div>
+        <div class="summary-grid">
+          <article class="card summary-card">
+            <h3>Datos básicos</h3>
+            <p>
+              Centro de Formación y Capacitación en Administración Pública del Chaco (CEFCA).<br />
+              Domicilio: Frondizi 174, Piso 6, Resistencia, Chaco.<br />
+              Código Postal: 3500.<br />
+              Mensajes de WhatsApp: +5493624279361.<br />
+              Correo institucional: cf@chaco.gob.ar.
+            </p>
+            <div class="badge-row">
+              <span class="badge">Datos de contacto</span>
+              <span class="badge alt">Ubicación</span>
+            </div>
+          </article>
+          <article class="card summary-card">
+            <h3>Misión y objetivos</h3>
+            <p>
+              El CEFCA orienta su accionar al fortalecimiento de las capacidades estatales mediante la formación, evaluación, investigación aplicada y generación de espacios de debate sobre los problemas públicos. Entre sus objetivos se incluyen la capacitación y profesionalización del empleo público, la evaluación del impacto de las capacitaciones, la articulación con universidades para proyectos de investigación y diagnóstico, y la promoción de ámbitos de encuentro que contribuyan a la gobernabilidad democrática.
+            </p>
+            <div class="badge-row">
+              <span class="badge">Formación pública</span>
+              <span class="badge alt">Investigación aplicada</span>
+            </div>
+          </article>
+          <article class="card summary-card">
+            <h3>Solicitud de información</h3>
+            <p>
+              Las solicitudes formales de información pública pueden realizarse a través del portal oficial de acceso a la información pública de la Provincia del Chaco. Asimismo, el organismo dispone de su canal institucional de Instagram para consultas y contacto complementario.
+            </p>
+            <div class="badge-row">
+              <span class="badge">Canales</span>
+              <span class="badge warn">Acceso formal</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="autoridades">
+      <div class="container">
+        <div class="section-head centered">
+          <div>
+            <div class="eyebrow">Autoridades</div>
+            <h2>Funcionarios y designaciones</h2>
+          </div>
+        </div>
+        <div class="authority-grid">
+          <article class="card authority-card">
+            <h3>Livio Gutiérrez</h3>
+            <p>Presidente del CEFCA</p>
+            <div class="authority-links">
+              <a class="mini-link" href="https://mapadelestado.chaco.gob.ar/dependencia/ver/2659" target="_blank" rel="noreferrer">Ver información oficial</a>
+            </div>
+          </article>
+          <article class="card authority-card">
+            <h3>María Jimena Molina</h3>
+            <p>Vocal del CEFCA</p>
+            <div class="authority-links">
+              <a class="mini-link" href="https://mapadelestado.chaco.gob.ar/dependencia/ver/2659" target="_blank" rel="noreferrer">Ver información oficial</a>
+            </div>
+          </article>
+          <article class="card authority-card">
+            <h3>Personal de Gabinete</h3>
+            <p>Las autoridades del organismo no cuentan con personal de gabinete asignado a la jurisdicción CEFCA.</p>
+            <div class="authority-links">
+              <a class="mini-link" href="https://mapadelestado.chaco.gob.ar/dependencia/ver/2659" target="_blank" rel="noreferrer">Ver información oficial</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodologia">
+      <div class="container">
+        <div class="pill-split">
+          <article class="pill-box" style="text-align: center;">
+            <div class="eyebrow">Información necesaria</div>
+            <h3>Transparencia activa</h3>
+            <p style="color: var(--muted); margin: 0; text-align: center;">
+              Debe concentrar la publicación obligatoria y sistemática de información institucional, presupuestaria, organizacional y de acceso ciudadano.
+            </p>
+          </article>
+          <article class="pill-box" style="text-align: center;">
+            <div class="eyebrow" style="background: rgba(11,122,117,0.1); color: var(--ok);">Mejora continua</div>
+            <h3>Transparencia proactiva</h3>
+            <p style="color: var(--muted); margin: 0; text-align: center;">
+              Debe mostrar información adicional que fortalezca planificación, integridad, evidencia, resultados y desempeño institucional más allá del mínimo normativo.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="activa">
+      <div class="container">
+        <div class="section-head centered">
+          <div>
+            <div class="eyebrow">ITA</div>
+            <h2>Secciones para Transparencia Activa</h2>
+          </div>
+        </div>
+        <div class="accordion-wrap">
+          <details>
+            <summary>
+              <div class="summary-title">1. Misión y/u objetivos<small>Publicar misión, objetivos y actualización visible</small></div>
+              <span class="badge">Alta prioridad</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li><strong>Planificar y ejecutar programas de capacitación, especialización, actualización y formación</strong> de los recursos humanos de los organismos públicos, asociados a los lineamientos de modernización y profesionalización del empleo público, potenciando la formación 4.0 y los oficios digitales.</li>
+                <li><strong>Evaluar el impacto de las capacitaciones</strong> de los agentes públicos en su ámbito de desempeño y sus resultados, según objetivos, optimización y calidad en la gestión.</li>
+                <li><strong>Coordinar con universidades metodologías, diseños y ejecución de proyectos de investigación</strong>, diagnóstico del estado y la marcha de la Administración Pública, y propuestas de mejoramiento o fortalecimiento de la gestión gubernamental, de las políticas públicas y de la innovación en los modelos de gestión del Estado.</li>
+                <li><strong>Generar ámbitos de encuentro, reflexión y debate</strong> para la construcción de consensos básicos acerca de los problemas públicos que fortalezcan la gobernabilidad democrática.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://mapadelestado.chaco.gob.ar/dependencia/ver/2659" target="_blank" rel="noreferrer">Ver información oficial</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">2. Servicios y/o trámites<small>Listado, requisitos, procedimientos o aclaración de que no corresponde</small></div>
+              <span class="badge alt">Atención ciudadana</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Las personas, así como los sectores (público y privado), pueden demandar al organismo actividades de capacitación y procesos de formación continua.</li>
+                <li>Asimismo, pueden solicitar investigaciones, datos estatales, estadísticas y otras tareas vinculadas con la producción y análisis de información.</li>
+                <li>El organismo evalúa este tipo de requerimientos de acuerdo con su pertinencia institucional y capacidades de respuesta.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://gobiernoabierto.chaco.gob.ar/innovacion/cf/" target="_blank" rel="noreferrer">Ver servicios institucionales</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">3. Autoridades y designaciones<small>Nombres, cargos y fuente oficial de consulta</small></div>
+              <span class="badge">Documentos</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li><strong>Livio Gutiérrez</strong>: Presidente del CEFCA.</li>
+                <li><strong>María Jimena Molina</strong>: Vocal del CEFCA.</li>
+                <li>Se deja constancia de que las autoridades del organismo <strong>no cuentan con personal de gabinete asignado a la jurisdicción CEFCA</strong>.</li>
+                <li>Para visualizar mayor información, consultar la fuente oficial del Mapa del Estado.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://mapadelestado.chaco.gob.ar/dependencia/ver/2659" target="_blank" rel="noreferrer">Ver información oficial</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">4. Planilla de personal y organigrama<small>Estructura interna, áreas y personal</small></div>
+              <span class="badge warn">Actualización semestral</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Organigrama institucional disponible para consulta pública.</li>
+                <li>La estructura orgánica de la jurisdicción puede visualizarse en el documento oficial publicado por el Mapa del Estado.</li>
+                <li>La planilla de personal podrá incorporarse en esta misma sección cuando se disponga del archivo correspondiente.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://mapadelestado.chaco.gob.ar/files/estructurasPDF/Centro%20de%20Formaci%C3%B3n%20y%20Capacitaci%C3%B3n%20en%20Administraci%C3%B3n%20Publica%20del%20Chaco.pdf" target="_blank" rel="noreferrer">Ver organigrama</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">5. Declaraciones juradas<small>Funcionarios a cargo y acceso al portal correspondiente</small></div>
+              <span class="badge">Integridad</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>La información vinculada con las declaraciones juradas patrimoniales de los funcionarios se encuentra disponible en el portal oficial habilitado por la Escribanía General de Gobierno.</li>
+                <li>La consulta debe realizarse a través del sitio institucional específico previsto para ese fin.</li>
+                <li>Para visualizar mayor información, acceder al enlace oficial indicado a continuación.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://escribania.chaco.gob.ar/portal-de-consulta-de-ddjj-patrimoniales/" target="_blank" rel="noreferrer">Ver declaraciones juradas</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">6. Escalas salariales<small>Remuneraciones, bonificaciones y complementos</small></div>
+              <span class="badge">Recursos humanos</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Los nombres del personal del organismo y las escalas salariales correspondientes se encuentran disponibles en el portal oficial de Recursos Humanos del Gobierno Abierto del Chaco.</li>
+                <li>La información puede consultarse en la página institucional destinada a recursos humanos.</li>
+                <li>Para visualizar mayor información, acceder al enlace oficial indicado a continuación.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://gobiernoabierto.chaco.gob.ar/recursos-humanos/" target="_blank" rel="noreferrer">Ver personal y escalas salariales</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">7. Presupuesto<small>Presupuesto vigente y planillas anexas</small></div>
+              <span class="badge alt">Ejercicio fiscal</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>El presupuesto del organismo se encuentra comprendido dentro del presupuesto general aprobado por la Cámara de Diputados de la Provincia del Chaco.</li>
+                <li>El presupuesto correspondiente al ejercicio 2026 puede consultarse en el documento oficial de promulgación de la Ley N.º 4194-F.</li>
+                <li>Para visualizar mayor información, acceder al enlace oficial indicado a continuación.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://hacienda.chaco.gov.ar/uploads/archivos/Decreto%20N%C2%B0%201793-25%20Promulgacion%20Ley%204194-F%20Presupuesto%202026.pdf" target="_blank" rel="noreferrer">Ver presupuesto 2026</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">8. Transferencias<small>Beneficiarios, montos, destino y programa vinculado</small></div>
+              <span class="badge">Ejecución</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Se deja constancia de que el organismo no realiza transferencias a otras jurisdicciones.</li>
+                <li>En consecuencia, este apartado no registra transferencias publicables al momento de la actualización.</li>
+                <li>La presente aclaración se incorpora a fin de dar cumplimiento al criterio de transparencia correspondiente.</li>
+              </ul>
+              <div class="doc-actions"><a href="#">Sin transferencias registradas</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">9. Compras y contrataciones<small>Proveedores, montos, plazos y adjudicación</small></div>
+              <span class="badge warn">Control público</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Toda la información vinculada con compras y contrataciones del organismo se encuentra disponible en el portal oficial de consulta de compras públicas de la Provincia del Chaco.</li>
+                <li>La consulta permite acceder a información sobre procedimientos, proveedores y demás antecedentes publicados en el sistema correspondiente.</li>
+                <li>Para visualizar mayor información, acceder al enlace oficial indicado a continuación.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://app.chaco.gob.ar/proveedores/servlet/com.ecom.wpconsultacompras" target="_blank" rel="noreferrer">Ver compras y contrataciones</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">10. Informes de auditoría y evaluaciones<small>Resultados de control interno o externo</small></div>
+              <span class="badge">Rendición de cuentas</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Se deja constancia de que no se realizaron informes de auditoría ni evaluaciones en el período informado.</li>
+                <li>Mediante esta aclaración, el organismo cumple con informar al ciudadano el estado actual de este apartado.</li>
+                <li>Sin perjuicio de ello, toda compra o contratación del organismo tramita por el proceso reglamentario correspondiente.</li>
+                <li>Asimismo, se aclara que la realización de auditorías y evaluaciones de control depende de organismos de contralor externo y de entes constitucionales ajenos al organismo.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">11. Solicitud de información<small>Requisitos, plazos y canales de contacto</small></div>
+              <span class="badge alt">Acceso a la información</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Las solicitudes formales de información pública del organismo pueden realizarse a través del portal oficial <strong>Solicitar Información Pública</strong>.</li>
+                <li>En dicho sitio se encuentra disponible el instructivo correspondiente para efectuar la presentación.</li>
+                <li>De manera complementaria, el organismo también recibe consultas por su canal oficial de Instagram.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://gobiernoabierto.chaco.gob.ar/transparencia/acceso-informacion/" target="_blank" rel="noreferrer">Solicitar Información Pública</a><a href="https://www.instagram.com/cf.chaco/" target="_blank" rel="noreferrer">Instagram oficial</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">12. Área responsable de transparencia<small>Nombre, cargo, contacto y funciones</small></div>
+              <span class="badge">Responsable institucional</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li><strong>Responsable del Área de Transparencia:</strong> María Jimena Molina.</li>
+                <li>Canal formal para solicitudes: portal oficial de acceso a la información pública.</li>
+                <li>Canal complementario de contacto institucional: Instagram oficial del organismo.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://gobiernoabierto.chaco.gob.ar/transparencia/acceso-informacion/" target="_blank" rel="noreferrer">Portal de acceso a la información</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">13. Participación ciudadana<small>Consultas, foros, audiencias o instancias participativas</small></div>
+              <span class="badge warn">Gobierno abierto</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>El 17 de marzo el CEFCA realizó una Jornada de Investigación Aplicada, entre cuyos objetivos se incluyó la escucha de ciudadanos para identificar e implementar soluciones orientadas al desarrollo del Chaco.</li>
+                <li>Asimismo, otra instancia con el objetivo de participación ciudadana fue el Programa Fortaleza dictado por la institución.</li>
+                <li>Estas instancias se incorporan como antecedentes de participación y vinculación con la ciudadanía promovidos por el organismo.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://gobiernoabierto.chaco.gob.ar/innovacion/cf/" target="_blank" rel="noreferrer">Ver actividades institucionales</a></div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="proactiva">
+      <div class="container">
+        <div class="section-head centered">
+          <div>
+            <div class="eyebrow" style="background: rgba(11,122,117,0.1); color: var(--ok);">ITP</div>
+            <h2>Secciones para Transparencia Proactiva</h2>
+          </div>
+        </div>
+        <div class="accordion-wrap">
+          <details>
+            <summary>
+              <div class="summary-title">1. Dotación óptima de personal<small>Estimación de recursos humanos requeridos</small></div>
+              <span class="badge alt">Planificación</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li><strong>Escuela de Gobierno:</strong> organismo anterior, con una dotación óptima estimada de <strong>11 agentes</strong>.</li>
+                <li><strong>Instituto Provincial de Administración Pública:</strong> organismo anterior, con una dotación óptima estimada de <strong>19 agentes</strong>.</li>
+                <li>Ambos organismos fueron fusionados para la creación del <strong>CEFCA</strong>, conforme a la estructura institucional actualmente vigente.</li>
+                <li><strong>Nuevo organismo CEFCA:</strong> previsión adicional de <strong>7 agentes</strong> como dotación óptima.</li>
+                <li>De acuerdo con la normativa vigente, la composición del organismo deriva de ese proceso de integración institucional.</li>
+                <li>Se deja constancia de que el equipo efectivamente disponible es actualmente de menor tamaño, en razón de la existencia de diversos cargos vacantes.</li>
+                <li>Entre las vacancias existentes, se incluye el cargo correspondiente a la <strong>Vocal del oficialismo</strong>.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">2. Política de integridad<small>Código de ética, denuncias y prevención de conflictos</small></div>
+              <span class="badge">Integridad pública</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Se deja constancia de que el organismo no cumple actualmente con este requisito en los términos aquí previstos.</li>
+                <li>Este apartado se mantiene incorporado a fin de transparentar el estado actual de desarrollo institucional en la materia.</li>
+                <li>Próximamente se trabajará en acciones orientadas a mejorar este componente.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">3. Planificación estratégica<small>Objetivos, proyectos, indicadores y horizonte temporal</small></div>
+              <span class="badge alt">Gestión</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Actualmente el organismo se encuentra trabajando en su planificación estratégica.</li>
+                <li>No obstante, a la fecha no se dispone de un documento formal que la ratifique y permita dar cumplimiento pleno a este criterio.</li>
+                <li>La presente aclaración se incorpora a fin de informar de manera transparente el estado actual de desarrollo institucional en esta materia.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">4. Datos estadísticos<small>Indicadores, reportes y bases de datos</small></div>
+              <span class="badge">Datos abiertos</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Los datos estadísticos que maneja el organismo se publican y difunden a través del Instagram oficial <strong>Chaco en Datos</strong>.</li>
+                <li>Ese canal funciona como espacio de consulta para visualizaciones, publicaciones e información estadística vinculada al organismo.</li>
+                <li>Para ampliar la información, puede consultarse el perfil oficial indicado a continuación.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://www.instagram.com/chacoendatos_/" target="_blank" rel="noreferrer">Ver estadísticas</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">5. Metas<small>Metas institucionales con seguimiento y plazos</small></div>
+              <span class="badge warn">Monitoreo</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Las metas del organismo vinculadas a las capacitaciones del año en vigencia se encuentran disponibles en esta sección institucional.</li>
+                <li>En este apartado puede consultarse información organizada sobre las metas previstas para el período en curso.</li>
+                <li>Para visualizar el detalle, presione el botón indicado a continuación.</li>
+              </ul>
+              <div class="doc-actions">
+                <button type="button" class="panel-trigger" id="openGoalsPanel">Ver metas institucionales</button>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">6. Informes de gestión<small>Resultados, uso de recursos y desempeño anual</small></div>
+              <span class="badge">Resultados</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>Para visualizar trabajos de investigación del equipo del CEFCA y conocer las capacitaciones realizadas o previstas, puede consultarse el espacio institucional del organismo.</li>
+                <li>Ese sitio reúne información sobre líneas de trabajo, actividades y acciones de formación impulsadas por el CEFCA.</li>
+                <li>Asimismo, se pone a disposición el informe de gestión del Área de Investigación para su consulta pública.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://gobiernoabierto.chaco.gob.ar/innovacion/cf/" target="_blank" rel="noreferrer">Ver investigaciones y capacitaciones</a><a href="https://drive.google.com/file/d/1Dgq4UOx9rrlcaOpvFkLExuagKS3VM4Ys/view?usp=sharing" target="_blank" rel="noreferrer">Ver informe de gestión del Área de Investigación</a></div>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="summary-title">7. Indicador específico del ente<small>Formación pública, investigación aplicada y vinculación institucional</small></div>
+              <span class="badge alt">Específico CEFCA</span>
+            </summary>
+            <div class="doc-body">
+              <ul>
+                <li>En atención a la naturaleza del organismo, el indicador específico del CEFCA se vincula con su capacidad de desarrollar acciones de formación, investigación aplicada y asistencia técnica orientadas al fortalecimiento de la administración pública provincial.</li>
+                <li>Este componente puede observarse en la oferta de capacitaciones vigentes, en las actividades de formación realizadas, en los trabajos de investigación del equipo y en las metas institucionales publicadas para el período en curso.</li>
+                <li>También comprende la articulación con la ciudadanía y con otros actores para relevar demandas, evaluar requerimientos y promover soluciones orientadas al desarrollo del Chaco.</li>
+              </ul>
+              <div class="doc-actions"><a href="https://gobiernoabierto.chaco.gob.ar/innovacion/cf/" target="_blank" rel="noreferrer">Ver acciones institucionales del CEFCA</a></div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="enlaces">
+      <div class="container">
+        <div class="section-head centered">
+          <div>
+            <div class="eyebrow">Enlaces externos</div>
+            <h2>Recursos y portales relacionados</h2>
+          </div>
+        </div>
+        <div class="links-grid">
+          <article class="card link-card">
+            <div>
+              <h3><span aria-hidden="true">🌐</span><span>Gobierno Abierto Chaco</span></h3>
+              <p>Portal institucional con acceso a transparencia, innovación pública y recursos oficiales vinculados al organismo.</p>
+            </div>
+            <a class="mini-link" href="https://gobiernoabierto.chaco.gob.ar/" target="_blank" rel="noreferrer">Abrir recurso</a>
+          </article>
+          <article class="card link-card">
+            <div>
+              <h3><span aria-hidden="true">🗺️</span><span>Mapa del Estado</span></h3>
+              <p>Consulta de organismos y autoridades provinciales.</p>
+            </div>
+            <a class="mini-link" href="https://mapadelestado.chaco.gob.ar/" target="_blank" rel="noreferrer">Abrir recurso</a>
+          </article>
+          <article class="card link-card">
+            <div>
+              <h3><span aria-hidden="true">📄</span><span>DDJJ patrimoniales</span></h3>
+              <p>Portal oficial de consulta de declaraciones juradas.</p>
+            </div>
+            <a class="mini-link" href="https://escribania.chaco.gob.ar/portal-de-consulta-de-ddjj-patrimoniales/" target="_blank" rel="noreferrer">Abrir recurso</a>
+          </article>
+          <article class="card link-card">
+            <div>
+              <h3><span aria-hidden="true">👥</span><span>Recursos humanos</span></h3>
+              <p>Escalas y referencias de personal del Gobierno Abierto.</p>
+            </div>
+            <a class="mini-link" href="https://gobiernoabierto.chaco.gob.ar/recursos-humanos/" target="_blank" rel="noreferrer">Abrir recurso</a>
+          </article>
+          <article class="card link-card">
+            <div>
+              <h3><span aria-hidden="true">💰</span><span>Presupuesto provincial</span></h3>
+              <p>Normativa y búsqueda pública del presupuesto.</p>
+            </div>
+            <a class="mini-link" href="https://hacienda.chaco.gov.ar/uploads/archivos/Decreto%20N%C2%B0%201793-25%20Promulgacion%20Ley%204194-F%20Presupuesto%202026.pdf" target="_blank" rel="noreferrer">Abrir recurso</a>
+          </article>
+          <article class="card link-card">
+            <div>
+              <h3><span aria-hidden="true">🛒</span><span>Compras públicas</span></h3>
+              <p>Consulta de proveedores y contrataciones estatales.</p>
+            </div>
+            <a class="mini-link" href="https://app.chaco.gob.ar/proveedores/servlet/com.ecom.wpconsultacompras" target="_blank" rel="noreferrer">Abrir recurso</a>
+          </article>
+          <article class="card link-card">
+            <div>
+              <h3><span aria-hidden="true">🏛️</span><span>CEFCA: investigaciones y capacitaciones</span></h3>
+              <p>Acceso al espacio institucional con trabajos de investigación, capacitaciones y metas vigentes del organismo.</p>
+            </div>
+            <a class="mini-link" href="https://gobiernoabierto.chaco.gob.ar/innovacion/cf/" target="_blank" rel="noreferrer">Abrir recurso</a>
+          </article>
+          <article class="card link-card">
+            <div>
+              <h3><span aria-hidden="true">📷</span><span>Instagram del CEFCA</span></h3>
+              <p>Canal oficial del organismo para difusión institucional y consultas.</p>
+            </div>
+            <a class="mini-link" href="https://www.instagram.com/cf.chaco/" target="_blank" rel="noreferrer">Abrir recurso</a>
+          </article>
+          <article class="card link-card">
+            <div>
+              <h3><span aria-hidden="true">📊</span><span>Instagram Chaco en Datos</span></h3>
+              <p>Canal oficial para publicaciones y contenidos estadísticos vinculados al organismo.</p>
+            </div>
+            <a class="mini-link" href="https://www.instagram.com/chacoendatos_/" target="_blank" rel="noreferrer">Abrir recurso</a>
+          </article>
+          <article class="card link-card">
+            <div>
+              <h3><span aria-hidden="true">📘</span><span>Facebook del CEFCA</span></h3>
+              <p>Canal oficial del organismo para comunicación institucional y novedades.</p>
+            </div>
+            <a class="mini-link" href="https://www.facebook.com/chaco.cf" target="_blank" rel="noreferrer">Abrir recurso</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container">
+        <div class="section-head centered">
+          <div>
+            <div class="eyebrow">Acceso a la información</div>
+            <h2>Solicitud de información pública y contacto</h2>
+          </div>
+        </div>
+        <div class="request-grid">
+          <article class="card request-card">
+            <h3>Cómo solicitar información</h3>
+            <ol class="request-steps">
+              <li>Para consultas generales, escribir al Instagram oficial o al Facebook oficial del organismo.</li>
+              <li>También puede realizarse la consulta o presentación en el domicilio institucional: Frondizi 174, Piso 6, Resistencia, Chaco.</li>
+              <li>Para solicitudes formales de información pública, utilizar el portal oficial de Gobierno Abierto habilitado para ese fin.</li>
+              <li>Se recomienda consignar claramente la información requerida y un medio de contacto para recibir respuesta.</li>
+            </ol>
+            <div class="callout" style="text-align: center;">
+              <strong>Plazo orientativo</strong>
+              <p style="margin: 6px 0 0; color: var(--muted); text-align: center;">
+                En caso de solicitud formal mediante el portal de Gobierno Abierto, el plazo orientativo de respuesta es de 15 días hábiles.
+              </p>
+            </div>
+          </article>
+          <article class="card request-card">
+            <h3>Responsable de transparencia</h3>
+            <p>
+              Nombre y apellido: María Jimena Molina.<br />
+              Cargo: Responsable del Área de Transparencia.<br />
+              Canal formal de solicitud: portal Solicitar Información Pública.<br />
+              Canal institucional complementario: Instagram oficial del organismo.<br />
+              Domicilio: Frondizi 174, Piso 6, Resistencia, Chaco.<br />
+              Código Postal: 3500.<br />
+              Horario de atención: 7:00 a 14:00.
+            </p>
+            <div class="badge-row">
+              <span class="badge">Contacto directo</span>
+              <span class="badge alt">Área responsable</span>
+            </div>
+            <p class="muted-note">
+              Las solicitudes formales pueden canalizarse a través de <a href="https://gobiernoabierto.chaco.gob.ar/transparencia/acceso-informacion/" target="_blank" rel="noreferrer">Solicitar Información Pública</a>. Para consultas por Instagram, se encuentra disponible el perfil oficial <a href="https://www.instagram.com/cf.chaco/" target="_blank" rel="noreferrer">@cf.chaco</a>.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="method-wrap">
+      <div class="container">
+        <article class="method-card">
+          <div class="method-layout">
+            <figure class="method-figure">
+              <div class="method-cover-frame empty" id="methodCoverFrame">
+                <img src="assets/metodologia/portada-metodologia.svg" alt="Portada del documento metodológico del Índice de Transparencia del Chaco" onerror="this.style.display='none'; this.parentElement.classList.add('empty');" onload="this.parentElement.classList.remove('empty'); this.style.display='block';" />
+              </div>
+                          </figure>
+            <div class="method-copy">
+              <div class="eyebrow">Documento metodológico</div>
+              <h2>Metodología del Índice de Transparencia del Chaco</h2>
+              <p>
+                El documento metodológico del Índice de Transparencia del Chaco fue elaborado en el ámbito del CEFCA, tomando como referencia y adaptación la metodología desarrollada por la Agencia de Acceso a la Información Pública. Su publicación permite poner a disposición de la ciudadanía un insumo técnico para la consulta, el seguimiento y el fortalecimiento de la transparencia institucional.
+              </p>
+              <p>
+                La incorporación de la portada en este bloque refuerza la identificación visual del documento, mejora su jerarquía dentro del portal y facilita una lectura más ordenada entre la referencia gráfica, la síntesis conceptual y el acceso directo a la publicación completa.
+              </p>
+              <div class="method-actions">
+                <a href="https://doi.org/10.13140/RG.2.2.18103.23206" target="_blank" rel="noreferrer">Consultar metodología publicada</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const metas = {
+        investigacion: [
+          { titulo: "Informalidad laboral multivariada", descripcion: "Publicar un documento de trabajo que sistematice distintas dimensiones de medición de la informalidad en la provincia del Chaco, con desagregación departamental, y en Argentina, con análisis por provincias.", icono: "📊" },
+          { titulo: "Jornada de estudios aplicados", descripcion: "Organizar una jornada orientada al desarrollo regional chaqueño, que articule y vincule investigaciones aplicadas de especialistas e investigadores de la región.", icono: "🗓️" },
+          { titulo: "Promoción industrial en Chaco", descripcion: "Publicar un artículo sobre la ley de promoción industrial en Chaco, analizando sus heterogeneidades, sectores alcanzados, beneficios, trayectorias y posibles criterios de mejora.", icono: "🏭" },
+          { titulo: "Proyecto Cuenca Forestal", descripcion: "Fortalecer el trabajo conjunto con distintas áreas del gobierno en el Proyecto Cuenca Forestal en El Impenetrable, una iniciativa con reconocimiento internacional y financiamiento de la FAO.", icono: "🌳" },
+          { titulo: "Agenda de estudios estratégicos", descripcion: "Avanzar en la publicación de documentos sobre pobreza energética, mercado inmobiliario chaqueño, proyección de ingresos provinciales y otras temáticas de interés para la gestión pública.", icono: "🧭" }
+        ],
+        capacitacion: [
+          { titulo: "Meta 1", descripcion: "Incorporar aquí la descripción específica de la meta vinculada con formación, actualización de competencias o fortalecimiento de capacidades.", icono: "🎓" },
+          { titulo: "Meta 2", descripcion: "Incorporar aquí la descripción específica de la meta vinculada con formación, actualización de competencias o fortalecimiento de capacidades.", icono: "🧠" },
+          { titulo: "Meta 3", descripcion: "Incorporar aquí la descripción específica de la meta vinculada con formación, actualización de competencias o fortalecimiento de capacidades.", icono: "📝" },
+          { titulo: "Meta 4", descripcion: "Incorporar aquí la descripción específica de la meta vinculada con formación, actualización de competencias o fortalecimiento de capacidades.", icono: "💡" },
+          { titulo: "Meta 5", descripcion: "Incorporar aquí la descripción específica de la meta vinculada con formación, actualización de competencias o fortalecimiento de capacidades.", icono: "🧑‍🏫" }
+        ]
+      };
+
+      const overlay = document.createElement("div");
+      overlay.className = "goals-overlay";
+      overlay.id = "goalsOverlay";
+
+      overlay.innerHTML = `
+        <div class="goals-panel" role="dialog" aria-modal="true" aria-labelledby="goalsPanelTitle">
+          <div class="goals-panel-header">
+            <button type="button" class="goals-close" id="closeGoalsPanel" aria-label="Cerrar panel">×</button>
+            <div class="eyebrow">Metas institucionales</div>
+            <h3 id="goalsPanelTitle">Metas institucionales previstas para el primer semestre de 2026</h3>
+            <p>En esta sección se presentan, de manera ordenada y diferenciada por área, las metas institucionales definidas para el primer semestre de 2026. La organización en dos columnas facilita una lectura clara de las prioridades, líneas de acción y objetivos operativos del organismo.</p>
+          </div>
+          <div class="goals-panel-body">
+            <p class="goals-intro">Período de referencia: primer semestre de 2026.</p>
+            <div class="goals-columns">
+              <section class="goals-column research">
+                <div class="goals-column-header">
+                  <div class="eyebrow">Área de Investigación</div>
+                  <h4>Metas del Área de Investigación</h4>
+                  <p>Objetivos orientados a la producción de evidencia, elaboración de diagnósticos, análisis económico-institucional y generación de insumos para la toma de decisiones.</p>
+                </div>
+                <div class="goals-list" id="researchGoalsList"></div>
+              </section>
+              <section class="goals-column training">
+                <div class="goals-column-header">
+                  <div class="eyebrow">Área de Capacitación</div>
+                  <h4>Metas del Área de Capacitación</h4>
+                  <p>Objetivos orientados al diseño e implementación de acciones formativas, actualización de competencias y fortalecimiento de capacidades en la administración pública.</p>
+                </div>
+                <div class="goals-list" id="trainingGoalsList"></div>
+              </section>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+
+      const researchGoalsList = document.getElementById("researchGoalsList");
+      const trainingGoalsList = document.getElementById("trainingGoalsList");
+
+      function renderGoals(list, container) {
+        list.forEach((meta, index) => {
+          const item = document.createElement("article");
+          item.className = "goal-item";
+          item.innerHTML = `
+            <div class="goal-number" aria-hidden="true">
+              <span class="goal-index">${index + 1}</span>
+              <span class="goal-icon">${meta.icono}</span>
+            </div>
+            <div class="goal-content">
+              <h5>${meta.titulo}</h5>
+              <p>${meta.descripcion}</p>
+            </div>
+          `;
+          container.appendChild(item);
+        });
+      }
+
+      renderGoals(metas.investigacion, researchGoalsList);
+      renderGoals(metas.capacitacion, trainingGoalsList);
+
+
+      const openBtn = document.getElementById("openGoalsPanel");
+      const closeBtn = document.getElementById("closeGoalsPanel");
+
+      function openPanel() {
+        overlay.classList.add("active");
+        document.body.classList.add("panel-open");
+      }
+
+      function closePanel() {
+        overlay.classList.remove("active");
+        document.body.classList.remove("panel-open");
+      }
+
+      if (openBtn) {
+        openBtn.addEventListener("click", openPanel);
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener("click", closePanel);
+      }
+
+      overlay.addEventListener("click", function (e) {
+        if (e.target === overlay) {
+          closePanel();
+        }
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && overlay.classList.contains("active")) {
+          closePanel();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
